@@ -1,0 +1,88 @@
+#define Relay_Bulb_1          8
+#define Relay_Bulb_2          9
+#define DC_5V_Fan             10
+#define Moble_Change_Control  11
+ 
+#define D0 4  // DTMF Binary Input D0
+#define D1 5  // DTMF Binary Input D1
+#define D2 6  // DTMF Binary Input D0
+#define D3 7  // DTMF Binary Input D0
+ 
+void setup() 
+ 
+{
+  // DTMF Input Diclaration 
+    pinMode(D0, INPUT);
+    pinMode(D1, INPUT);
+    pinMode(D2, INPUT);
+    pinMode(D3, INPUT);
+ 
+// Output Controls 
+    pinMode(Relay_Bulb_1, OUTPUT);
+    pinMode(Relay_Bulb_2, OUTPUT);
+    pinMode(DC_5V_Fan, OUTPUT);
+    pinMode(Moble_Change_Control, OUTPUT);
+ 
+}
+ 
+ 
+void loop() 
+ 
+{
+    // Mobile key pad Done Reading s
+    int Binary_Input_1=digitalRead(D0);
+    int Binary_Input_2=digitalRead(D1);
+    int Binary_Input_3=digitalRead(D2);
+    int Binary_Input_4=digitalRead(D3);
+ 
+    if(Binary_Input_1==1 && Binary_Input_2==0 && Binary_Input_3==0 && Binary_Input_4==0)      // Mobile key 1
+    {
+        digitalWrite(Relay_Bulb_1, HIGH);
+    }  
+    else if(Binary_Input_1==0 && Binary_Input_2==1&& Binary_Input_3==0 && Binary_Input_4==0)  // Mobile key 2
+    {
+        digitalWrite(Relay_Bulb_1, LOW);
+    }
+ 
+    else if(Binary_Input_1==1 && Binary_Input_2==1 && Binary_Input_3==0 && Binary_Input_4==0) // Mobile key 3
+    {
+        digitalWrite(Relay_Bulb_2, HIGH);
+    }
+    else if(Binary_Input_1==0 && Binary_Input_2==0 && Binary_Input_3==1 && Binary_Input_4==0) // Mobile key 4
+    {
+        digitalWrite(Relay_Bulb_2, LOW);
+    }
+ 
+    else if(Binary_Input_1==1 && Binary_Input_2==0 && Binary_Input_3==1 && Binary_Input_4==0) // Mobile key 5
+    {
+        digitalWrite(DC_5V_Fan, HIGH);
+    }
+ 
+    else if(Binary_Input_1==0 && Binary_Input_2==1&& Binary_Input_3==1 && Binary_Input_4==0)  // Mobile key 6
+    {
+        digitalWrite(DC_5V_Fan, LOW);
+    }
+    else if(Binary_Input_1==1 && Binary_Input_2==1&& Binary_Input_3==1 && Binary_Input_4==0)  // Mobile key 7
+    {
+        digitalWrite(Moble_Change_Control, HIGH);
+    }
+    else if(Binary_Input_1==0 && Binary_Input_2==0&& Binary_Input_3==0 && Binary_Input_4==1)  // Mobile key 8
+    {
+        digitalWrite(Moble_Change_Control, LOW);
+    }
+    else if(Binary_Input_1==1 && Binary_Input_2==0&& Binary_Input_3==0 && Binary_Input_4==1)  // Mobile key 9
+    {
+        digitalWrite(Moble_Change_Control, HIGH);
+        digitalWrite(DC_5V_Fan, HIGH);
+        digitalWrite(Relay_Bulb_1, HIGH);
+        digitalWrite(Relay_Bulb_2, HIGH);
+    }
+    else if(Binary_Input_1==0&& Binary_Input_2==1&& Binary_Input_3==0 && Binary_Input_4==1)   // Mobile key 0
+    {
+        digitalWrite(Moble_Change_Control, LOW);
+        digitalWrite(DC_5V_Fan, LOW);
+        digitalWrite(Relay_Bulb_1, LOW);
+        digitalWrite(Relay_Bulb_2, LOW);
+    }
+ 
+}
